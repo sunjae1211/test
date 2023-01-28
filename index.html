@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="./images/flags.css">
+<link rel="stylesheet" href="https://tistory1.daumcdn.net/tistory/3321420/skin/images/flags.css">
+</head>
+<body>
+    <div id="google_translate_element" style="display:none;"></div>
+    <!-- "새 번역 링크 UI" -->
+    <ul class="translation-links">
+        <li><a href="javascript:void(0)" class="Korean" data-lang="ko"><span class="flag ko"></span></a></li>
+        <!--<li><a href="javascript:void(0)" class="kannada" data-lang="kn"><span class="flag kn"></span></a></li>-->
+        <li><a href="javascript:void(0)" class="english" data-lang="en"><span class="flag en"></span></a></li>
+        <li><a href="javascript:void(0)" class="Taiwanese(Traditional)" data-lang="zh-TW"><span class="flag zh-TW"></span></a></li>
+        <li><a href="javascript:void(0)" class="spanish" data-lang="es"><span class="flag es"></span></a></li>
+        <li><a href="javascript:void(0)" class="Russian" data-lang="ru"><span class="flag ru"></span></a></li>
+				<li><a href="javascript:void(0)" class="japanese" data-lang="ja"><span class="flag ja"></span></a></li>
+    </ul>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script type="text/javascript">
+        /* 구글 번역 초기화 */
+        function googleTranslateElementInit() {new google.translate.TranslateElement({pageLanguage: 'ko',autoDisplay: true}, 'google_translate_element');}
+    </script>
+    <script type="text/javascript">
+        /* 새 UI 선택 클릭 이벤트가 발생하면
+        감춤 처리한 구글 번역 콤보리스트에
+        선택한 언어를 적용해 변경 이벤트를 발생시키는 코드  */
+        document.querySelector('.translation-links').addEventListener('click',function(event) {
+            let el = event.target;
+            if(el != null){
+                while(el.nodeName == 'FONT' || el.nodeName == 'SPAN'){el = el.parentElement;}//data-lang 속성이 있는 태그 찾기
+                const tolang = el.dataset.lang; // 변경할 언어 코드 얻기
+                const gtcombo = document.querySelector('.goog-te-combo');
+                if (gtcombo == null) {
+                    alert("Error: Could not find Google translate Combolist.");
+                    return false;
+                }
+                gtcombo.value = tolang; // 변경할 언어 적용
+                gtcombo.dispatchEvent(new Event('change')); // 변경 이벤트 트리거
+            }
+            return false;
+        });
+    </script>    
+    <style>
+        .flag{
+        display: inline-block;
+        width: 30px;
+        height: 20px;
+        margin-right: 10px;
+    }
+
+    .skiptranslate {display:none;}/* 구글 툴바 안뜨게 */
+    body{position:unset !important;}
+    .translation-links{display:flex; max-width:unset !important; justify-content: center;}
+    #goog-gt-tt{display: none !important;}
+    </style>
+
+</body>
+</html>
